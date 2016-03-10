@@ -12,6 +12,7 @@ use XML::RSS;
 use JSON;
 use DateTime::Format::ISO8601;
 use DateTime;
+use DateTime::Format::W3CDTF;
 
 has schema => (
     isa => 'CPANRatings::Schema',
@@ -174,6 +175,7 @@ sub as_rss {
                    description => $text,
                    dc => {
                           creator  => $review->user_name,
+                          date  => DateTime::Format::W3CDTF->new->format_datetime( $review->updated ),
                          },
                   );    
     last if ++$i == 20;
